@@ -1,0 +1,16 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: xxxxx
+      secretKey: xxxxx
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+
+sqs:
+  queueNames: {
+    "hello": "hello_main",
+    "helloDlq": "hello_dlq"
+  }

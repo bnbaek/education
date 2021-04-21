@@ -1,0 +1,21 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: xxxxx
+      secretKey: xxxxx
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+sqs:
+  queueNames: {
+    "hello": "hello_main",
+    "helloDlq": "hello_dlq"
+  }

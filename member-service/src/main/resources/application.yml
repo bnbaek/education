@@ -1,0 +1,36 @@
+server.port: 9340
+spring:
+  application:
+    name: member-service
+  profiles:
+    active: local
+    include:
+      - aws
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  # Datasource 설정
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+
+  ## Hibernate
+  jpa:
+    database-platform: H2
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+# H2 설정
+spring.h2.console.enabled: true
+spring.h2.console.path: /h2
+
+logging.level.com.amazonaws.util.EC2MetadataUtils: error

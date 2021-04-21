@@ -1,0 +1,15 @@
+server.port: 9350
+spring:
+  application:
+    name: product-service
+  profiles:
+    active: local
+    include:
+      - aws
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+
+
+logging.level.com.amazonaws.util.EC2MetadataUtils: error

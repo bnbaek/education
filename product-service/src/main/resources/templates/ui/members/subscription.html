@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscription Query</title>
+</head>
+<script>
+    window.addEventListener("DOMContentLoaded", function (){
+        (function () {
+            let appendDiv = document.getElementById("layout");
+            let text = document.getElementById("holderInput");
+            let eventSource = undefined;
+            let pElem = document.createElement("p");
+            document.getElementById("wrapper").addEventListener("click", append);
+
+            function append(e) {
+                let target = e.target;
+                let callbackFunction = callback[target.getAttribute("data-cb")];
+                callbackFunction();
+            }
+
+            function closeEventSource() {
+                eventSource.close();
+                eventSource = undefined;
+            }
+
+            let callback = {
+                "search": (function () {
+                    let holderId = text.value;
+                    if (eventSource !== undefined) {
+                        closeEventSource();
+                    }
+
+                    if (holderId === undefined || holderId === null || holderId === "") {
+                        alert("멤버의 seq을(를) 입력하시오.");
+                    } else {
+                        eventSource = new EventSource('/api/members/subscription/' + holderId);
+                        eventSource.onopen = function () {
+                            console.log("connected");
+                        };
+                        eventSource.onmessage = function (event) {
+                            let elem = pElem.cloneNode();
+                            elem.innerText = event.data;
+                            appendDiv.appendChild(elem);
+                        };
+                        eventSource.onerror = function () {
+                            console.error("Connection error has occurred");
+                            closeEventSource();
+                        }
+                        console.log("tst");
+                    }
+                }),
+                "disconnect": (function () {
+                    if (eventSource !== undefined) {
+                        console.log("disconnected");
+                        closeEventSource();
+                    }
+                })
+            }
+        }());
+    });
+</script>
+<body>
+<div id="wrapper">
+  <input type="button" data-cb="search" value="조회"/>
+  <input type="button" data-cb="disconnect" value="종료"/>
+</div>
+<input type="text" id="holderInput" placeholder="멤버 SEQ를 입력하시오.">
+<div id="layout"/>
+</body>
+</html>

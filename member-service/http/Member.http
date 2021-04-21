@@ -1,0 +1,64 @@
+### created
+POST http://localhost:9340/api/members
+Content-Type: application/json
+
+{
+  "id": "memberA"
+  ,"name": "김말똥"
+}
+### create 2
+POST http://localhost:9340/api/members
+Content-Type: application/json
+
+{
+  "id": "memberB"
+,"name": "김소똥"
+}
+
+### findAll
+
+GET http://localhost:9340/api/members
+Content-Type: application/json
+
+
+### findById
+
+GET http://localhost:9340/api/members/1
+Content-Type: application/json
+
+### findBySeq
+
+GET http://localhost:9340/api/members/id/memberA
+Content-Type: application/json
+
+### update user status
+
+PUT http://localhost:9340/api/members/status
+Content-Type: application/json
+
+{
+  "seq": 2,
+  "status": "SANCTIONS_FOR_USE"
+}
+
+
+### test
+
+PUT http://localhost:9340/api/members/status
+Content-Type: application/json
+
+{
+  "seq": 1,
+  "status": "USING"
+}
+
+### test
+
+PUT http://localhost:9340/api/members/status
+Content-Type: application/json
+
+{
+  "seq": 1,
+  "status": "WAITING"
+}
+

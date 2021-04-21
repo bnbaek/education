@@ -1,0 +1,4 @@
+rootProject.name = 'education-service'
+include 'member-service'
+include 'product-service'
+
